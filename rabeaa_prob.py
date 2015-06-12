@@ -1,11 +1,14 @@
 import copy
 
+# TO RUN: python reabeaa_prob.py
+
 # https://rabeeaa.wordpress.com/2015/06/11/top-coder-solution-2-dynamic-programming-most-charitable-option/
 
 # Complexity is O(n) in time and O(n) in space, where n is the number of residents/houses 
 
 def best_donation_possible( residents ):
-   
+    
+    # Edge cases
     if(len(residents) == 0):
         return 0
     elif(len(residents) == 1):
@@ -14,16 +17,15 @@ def best_donation_possible( residents ):
         return max(residents)
     elif(len(residents) == 3):
         return max(residents)
-
+    
+    # Treat case where you choose first house differently
     withFirst = [0 for i in range(len(residents) - 3 )] 
     withoutFirst = [0 for i in range(len(residents) -1 )]
-    
     residentsWithFirst = copy.deepcopy(residents)
     residentsWithoutFirst = copy.deepcopy(residents)
 
     helper( residentsWithFirst[2:-1], withFirst )
     helper( residentsWithoutFirst[1:], withoutFirst ) 
-   
     
     return max( withFirst[0] + residents[0], withoutFirst[0] )
 
